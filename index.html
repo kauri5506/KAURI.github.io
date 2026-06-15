@@ -3,372 +3,201 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>KAURI's TRAINER CARD</title>
-  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323:wght@400&display=swap" rel="stylesheet"/>
+  <title>KAURI · Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --gb-black:   #0f0f0f;
-      --gb-dark:    #306230;
-      --gb-mid:     #8bac0f;
-      --gb-light:   #9bbc0f;
-      --gb-white:   #e0f0c0;
-      --gb-screen:  #c4cfa1;
-      --gb-red:     #e83030;
-      --gb-yellow:  #f8d800;
-      --pixel: 'Press Start 2P', monospace;
-      --vt: 'VT323', monospace;
+      --red:      #CC0000;
+      --red-dark: #990000;
+      --red-light:#FF3333;
+      --black:    #1A1A1A;
+      --gray:     #444444;
+      --silver:   #888888;
+      --border:   #DDDDDD;
+      --surface:  #F5F5F5;
+      --white:    #FFFFFF;
+      --sans:     'Inter', sans-serif;
+      --display:  'Space Grotesk', sans-serif;
+      --mono:     'JetBrains Mono', monospace;
     }
-
-    * { box-sizing: border-box; margin: 0; padding: 0; image-rendering: pixelated; }
-
-    body {
-      background: var(--gb-black);
-      color: var(--gb-white);
-      font-family: var(--pixel);
-      min-height: 100vh;
-      overflow-x: hidden;
-    }
-
-    /* ── SCANLINE OVERLAY ── */
-    body::before {
-      content: '';
-      position: fixed; inset: 0; z-index: 9999;
-      pointer-events: none;
-      background: repeating-linear-gradient(
-        0deg,
-        transparent,
-        transparent 2px,
-        rgba(0,0,0,0.08) 2px,
-        rgba(0,0,0,0.08) 4px
-      );
-    }
-
-    /* ── PIXEL BORDER UTIL ── */
-    .pixel-box {
-      border: 4px solid var(--gb-white);
-      box-shadow: 4px 4px 0 var(--gb-dark), inset -2px -2px 0 var(--gb-mid);
-    }
-    .pixel-box-dark {
-      border: 4px solid var(--gb-dark);
-      box-shadow: 4px 4px 0 #000, inset -2px -2px 0 var(--gb-black);
-    }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--white); color: var(--black); line-height: 1.6; -webkit-font-smoothing: antialiased; }
 
     /* ── NAV ── */
     nav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-      background: var(--gb-dark);
-      border-bottom: 4px solid var(--gb-mid);
-      padding: 0 24px;
-      height: 52px;
+      background: var(--black); height: 56px; padding: 0 40px;
       display: flex; align-items: center; justify-content: space-between;
     }
-    .nav-logo {
-      font-family: var(--pixel);
-      font-size: 10px;
-      color: var(--gb-yellow);
-      text-shadow: 2px 2px 0 var(--gb-black);
-      letter-spacing: 2px;
-    }
-    .nav-logo span { color: var(--gb-white); }
-    .nav-links { display: flex; gap: 24px; list-style: none; }
-    .nav-links a {
-      font-family: var(--pixel);
-      font-size: 7px;
-      color: var(--gb-white);
-      text-decoration: none;
-      letter-spacing: 1px;
-      transition: color 0.1s;
-    }
-    .nav-links a:hover { color: var(--gb-yellow); }
+    .nav-logo { font-family: var(--display); font-size: 16px; font-weight: 700; color: var(--white); display: flex; align-items: center; gap: 10px; }
+    .pokeball-icon { width: 22px; height: 22px; border-radius: 50%; border: 2.5px solid var(--white); background: linear-gradient(to bottom, var(--red) 50%, var(--white) 50%); position: relative; flex-shrink: 0; }
+    .pokeball-icon::before { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 6px; height: 6px; border-radius: 50%; background: var(--white); border: 2px solid var(--white); box-shadow: 0 0 0 2px var(--black); }
+    .pokeball-icon::after { content: ''; position: absolute; top: calc(50% - 1.25px); left: 0; right: 0; height: 2.5px; background: var(--black); }
+    .nav-links { display: flex; gap: 28px; list-style: none; }
+    .nav-links a { font-size: 13px; font-weight: 500; color: rgba(255,255,255,0.65); text-decoration: none; transition: color 0.15s; }
+    .nav-links a:hover { color: var(--white); }
 
-    /* ── HERO / TRAINER CARD ── */
-    .hero {
-      min-height: 100vh;
-      display: flex; align-items: center; justify-content: center;
-      padding: 80px 24px 40px;
-      background:
-        radial-gradient(ellipse at 20% 50%, rgba(48,98,48,0.3) 0%, transparent 60%),
-        var(--gb-black);
-    }
+    /* ── HERO ── */
+    .hero { min-height: 100vh; background: var(--black); display: flex; align-items: center; padding: 100px 40px 60px; position: relative; overflow: hidden; }
+    .hero::before { content: ''; position: absolute; right: -120px; top: 50%; transform: translateY(-50%); width: 600px; height: 600px; border-radius: 50%; background: linear-gradient(to bottom, var(--red) 50%, rgba(255,255,255,0.06) 50%); border: 12px solid rgba(255,255,255,0.08); pointer-events: none; }
+    .hero::after { content: ''; position: absolute; right: -120px; top: 50%; transform: translateY(-50%) translateY(-6px); width: 600px; height: 12px; background: rgba(255,255,255,0.08); pointer-events: none; }
+    .hero-inner { max-width: 1080px; margin: 0 auto; width: 100%; position: relative; z-index: 1; }
+    .hero-eyebrow { font-family: var(--mono); font-size: 12px; font-weight: 500; color: var(--red-light); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 24px; display: flex; align-items: center; gap: 10px; }
+    .hero-eyebrow::before { content: ''; display: inline-block; width: 20px; height: 2px; background: var(--red); }
+    .hero h1 { font-family: var(--display); font-size: clamp(44px, 6vw, 72px); font-weight: 700; line-height: 1.06; letter-spacing: -0.03em; color: var(--white); margin-bottom: 24px; }
+    .hero h1 .accent { color: var(--red-light); }
+    .hero-desc { font-size: 16px; color: rgba(255,255,255,0.55); line-height: 1.8; max-width: 500px; margin-bottom: 48px; }
+    .trainer-card { display: inline-flex; flex-direction: column; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.12); border-radius: 16px; overflow: hidden; margin-bottom: 48px; max-width: 480px; width: 100%; }
+    .tc-header { background: var(--red); padding: 10px 18px; font-family: var(--mono); font-size: 10px; font-weight: 500; color: rgba(255,255,255,0.9); letter-spacing: 0.1em; text-transform: uppercase; display: flex; align-items: center; gap: 8px; }
+    .tc-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,0.5); }
+    .tc-body { padding: 20px 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .tc-field { display: flex; flex-direction: column; gap: 3px; }
+    .tc-label { font-family: var(--mono); font-size: 9px; color: rgba(255,255,255,0.4); letter-spacing: 0.1em; text-transform: uppercase; }
+    .tc-value { font-family: var(--display); font-size: 15px; font-weight: 600; color: var(--white); }
+    .tc-footer { border-top: 1px solid rgba(255,255,255,0.08); padding: 12px 18px; font-family: var(--mono); font-size: 10px; color: rgba(255,255,255,0.35); display: flex; align-items: center; gap: 8px; }
+    .tc-bar { flex: 1; height: 4px; background: rgba(255,255,255,0.1); border-radius: 2px; overflow: hidden; }
+    .tc-bar-fill { height: 100%; width: 72%; background: var(--red); border-radius: 2px; animation: barfill 1.5s ease-out; }
+    @keyframes barfill { from { width: 0; } }
+    .hero-cta { display: flex; gap: 12px; }
+    .btn { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; font-family: var(--sans); font-size: 14px; font-weight: 600; border-radius: 8px; text-decoration: none; transition: all 0.18s; }
+    .btn-primary { background: var(--red); color: var(--white); border: 2px solid var(--red); }
+    .btn-primary:hover { background: var(--red-dark); border-color: var(--red-dark); }
+    .btn-secondary { background: transparent; color: var(--white); border: 2px solid rgba(255,255,255,0.25); }
+    .btn-secondary:hover { border-color: var(--white); }
 
-    .trainer-card {
-      max-width: 700px; width: 100%;
-      background: var(--gb-screen);
-      border: 6px solid var(--gb-white);
-      box-shadow: 8px 8px 0 var(--gb-dark), 12px 12px 0 var(--gb-black);
-      padding: 32px;
-      position: relative;
-      color: var(--gb-black);
-    }
-    .trainer-card::before {
-      content: '';
-      position: absolute; top: 8px; left: 8px; right: 8px; bottom: 8px;
-      border: 2px solid var(--gb-dark);
-      pointer-events: none;
-    }
+    /* ── STATS ── */
+    .stats-strip { background: var(--red); }
+    .stats-inner { max-width: 1080px; margin: 0 auto; padding: 0 40px; display: flex; }
+    .stat-item { flex: 1; padding: 24px 0; text-align: center; border-right: 1px solid rgba(255,255,255,0.2); }
+    .stat-item:last-child { border-right: none; }
+    .stat-num { font-family: var(--display); font-size: 30px; font-weight: 700; color: var(--white); letter-spacing: -0.03em; }
+    .stat-num sup { font-size: 16px; }
+    .stat-label { font-family: var(--mono); font-size: 10px; color: rgba(255,255,255,0.7); margin-top: 2px; letter-spacing: 0.05em; }
 
-    .card-header {
-      display: flex; justify-content: space-between; align-items: flex-start;
-      margin-bottom: 24px;
-      padding-bottom: 16px;
-      border-bottom: 3px solid var(--gb-dark);
-    }
-    .card-title {
-      font-family: var(--pixel);
-      font-size: 8px;
-      color: var(--gb-dark);
-      letter-spacing: 1px;
-      margin-bottom: 8px;
-    }
-    .card-name {
-      font-family: var(--pixel);
-      font-size: 16px;
-      color: var(--gb-black);
-      text-shadow: 2px 2px 0 var(--gb-dark);
-      line-height: 1.4;
-    }
-    .card-name span { color: var(--gb-red); }
+    /* ── SECTION COMMON ── */
+    .section { max-width: 1080px; margin: 0 auto; padding: 80px 40px; }
+    .section-head { margin-bottom: 48px; display: flex; align-items: center; gap: 16px; }
+    .section-pokeball { width: 28px; height: 28px; border-radius: 50%; flex-shrink: 0; background: linear-gradient(to bottom, var(--red) 50%, var(--white) 50%); border: 3px solid var(--black); position: relative; }
+    .section-pokeball::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 3px; background: var(--black); transform: translateY(-50%); }
+    .section-pokeball::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 8px; height: 8px; border-radius: 50%; background: var(--white); border: 2px solid var(--black); }
+    .section-title { font-family: var(--display); font-size: 26px; font-weight: 700; letter-spacing: -0.02em; color: var(--black); }
+    .stripe-divider { height: 6px; background: repeating-linear-gradient(90deg, var(--red) 0px, var(--red) 20px, var(--black) 20px, var(--black) 40px); }
 
-    /* Trainer sprite placeholder */
-    .trainer-sprite {
-      width: 80px; height: 80px;
-      border: 3px solid var(--gb-dark);
-      background: var(--gb-mid);
-      display: flex; align-items: center; justify-content: center;
-      font-size: 36px;
-      image-rendering: pixelated;
-      flex-shrink: 0;
-    }
+    /* ── LIFE TIMELINE ── */
+    .life-section { background: var(--black); padding: 80px 0; }
+    .life-inner { max-width: 1080px; margin: 0 auto; padding: 0 40px; }
+    .life-head { margin-bottom: 16px; display: flex; align-items: center; gap: 16px; }
+    .life-title { font-family: var(--display); font-size: 26px; font-weight: 700; color: var(--white); }
+    .life-subtitle { font-family: var(--mono); font-size: 12px; color: rgba(255,255,255,0.35); margin-bottom: 52px; letter-spacing: 0.05em; }
 
-    .card-stats {
-      display: grid; grid-template-columns: 1fr 1fr;
-      gap: 10px; margin-bottom: 20px;
-    }
-    .stat-row {
-      display: flex; flex-direction: column; gap: 4px;
-    }
-    .stat-label {
-      font-family: var(--pixel);
-      font-size: 6px; color: var(--gb-dark);
-      letter-spacing: 1px; text-transform: uppercase;
-    }
-    .stat-val {
-      font-family: var(--vt);
-      font-size: 20px; color: var(--gb-black);
-      line-height: 1;
-    }
+    .tl-wrap { position: relative; padding-left: 32px; }
+    .tl-wrap::before { content: ''; position: absolute; left: 7px; top: 0; bottom: 0; width: 2px; background: rgba(255,255,255,0.12); }
 
-    /* HP bar style for years */
-    .hp-bar-wrap { margin-top: 6px; }
-    .hp-label { font-family: var(--pixel); font-size: 6px; color: var(--gb-dark); margin-bottom: 4px; }
-    .hp-bar {
-      height: 10px;
-      background: var(--gb-mid);
-      border: 2px solid var(--gb-dark);
-      position: relative; overflow: hidden;
-    }
-    .hp-fill {
-      height: 100%;
-      background: var(--gb-dark);
-      width: 70%;
-      animation: hpgrow 1.5s ease-out;
-    }
-    @keyframes hpgrow { from { width: 0; } }
+    .tl-item { position: relative; margin-bottom: 36px; }
+    .tl-item:last-child { margin-bottom: 0; }
+    .tl-dot { position: absolute; left: -29px; top: 4px; width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--black); background: linear-gradient(to bottom, var(--red) 50%, var(--white) 50%); z-index: 1; }
+    .tl-dot::before { content: ''; position: absolute; top: 50%; left: 0; right: 0; height: 2px; background: var(--black); transform: translateY(-50%); }
+    .tl-dot::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 4px; height: 4px; border-radius: 50%; background: var(--white); border: 1px solid var(--black); }
+    /* Special highlight items */
+    .tl-item.highlight .tl-dot { width: 18px; height: 18px; left: -31px; top: 2px; box-shadow: 0 0 0 4px rgba(204,0,0,0.25); }
+    .tl-item.pivot .tl-dot { background: linear-gradient(to bottom, #FFD700 50%, var(--white) 50%); box-shadow: 0 0 0 4px rgba(255,215,0,0.2); }
 
-    /* ── BLINK CURSOR ── */
-    .blink { animation: blink 1s step-end infinite; }
-    @keyframes blink { 50% { opacity: 0; } }
+    .tl-period { font-family: var(--mono); font-size: 11px; color: var(--red-light); letter-spacing: 0.05em; margin-bottom: 4px; }
+    .tl-item.pivot .tl-period { color: #FFD700; }
+    .tl-title { font-family: var(--display); font-size: 16px; font-weight: 600; color: var(--white); margin-bottom: 4px; }
+    .tl-sub { font-size: 13px; color: rgba(255,255,255,0.45); line-height: 1.5; }
+    .tl-badge { display: inline-block; margin-top: 8px; font-family: var(--mono); font-size: 10px; padding: 3px 10px; border-radius: 20px; }
+    .badge-edu { background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.5); border: 1px solid rgba(255,255,255,0.12); }
+    .badge-mil { background: rgba(100,120,80,0.3); color: #9BC078; border: 1px solid rgba(100,120,80,0.4); }
+    .badge-air { background: rgba(50,100,200,0.2); color: #7AADFF; border: 1px solid rgba(50,100,200,0.3); }
+    .badge-it  { background: rgba(204,0,0,0.2); color: var(--red-light); border: 1px solid rgba(204,0,0,0.3); }
+    .badge-work{ background: var(--red); color: var(--white); border: 1px solid var(--red); }
 
-    /* ── SCREEN SECTION ── */
-    .gb-screen {
-      background: var(--gb-screen);
-      border: 6px solid var(--gb-dark);
-      box-shadow: 6px 6px 0 var(--gb-black), inset 2px 2px 0 var(--gb-mid);
-      padding: 28px;
-      margin-bottom: 32px;
+    /* pivot story card */
+    .pivot-card {
+      background: rgba(255,215,0,0.05); border: 1px solid rgba(255,215,0,0.2);
+      border-radius: 10px; padding: 16px 18px; margin-top: 10px;
+      font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.75;
     }
-    .screen-title {
-      font-family: var(--pixel);
-      font-size: 9px;
-      color: var(--gb-dark);
-      margin-bottom: 20px;
-      letter-spacing: 2px;
-      display: flex; align-items: center; gap: 10px;
-    }
-    .screen-title::before {
-      content: '▶';
-      color: var(--gb-black);
-      font-size: 8px;
-    }
+    .pivot-card strong { color: #FFD700; font-weight: 600; }
 
-    /* ── SECTION WRAPPER ── */
-    .section {
-      max-width: 900px; margin: 0 auto;
-      padding: 60px 24px;
-    }
-    .section-label {
-      font-family: var(--pixel);
-      font-size: 11px;
-      color: var(--gb-yellow);
-      text-shadow: 2px 2px 0 var(--gb-dark);
-      letter-spacing: 3px;
-      margin-bottom: 32px;
-      display: flex; align-items: center; gap: 12px;
-    }
-    .section-label::before { content: '★'; color: var(--gb-red); }
+    /* ── EXPERIENCE (Security first) ── */
+    .exp-entry { padding: 36px 0; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 180px 1fr; gap: 0 32px; }
+    .exp-entry:last-child { border-bottom: none; }
+    .exp-period { font-family: var(--mono); font-size: 12px; color: var(--silver); line-height: 1.7; }
+    .exp-active { display: inline-block; margin-top: 8px; font-family: var(--mono); font-size: 10px; padding: 3px 10px; border-radius: 20px; background: #FFF0F0; color: var(--red); border: 1px solid #FFBBBB; }
+    .exp-role { font-family: var(--display); font-size: 20px; font-weight: 700; color: var(--black); letter-spacing: -0.01em; margin-bottom: 4px; }
+    .exp-company { font-size: 14px; color: var(--silver); margin-bottom: 28px; }
 
-    /* ── POKÉDEX ENTRY (skill groups) ── */
-    .dex-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-    .dex-entry {
-      background: var(--gb-screen);
-      border: 4px solid var(--gb-dark);
-      box-shadow: 4px 4px 0 var(--gb-black);
-      padding: 16px;
-      color: var(--gb-black);
-      transition: transform 0.1s;
-    }
-    .dex-entry:hover { transform: translate(-2px, -2px); box-shadow: 6px 6px 0 var(--gb-black); }
-    .dex-no {
-      font-family: var(--pixel);
-      font-size: 7px;
-      color: var(--gb-dark);
-      margin-bottom: 8px;
-      letter-spacing: 1px;
-    }
-    .dex-name {
-      font-family: var(--pixel);
-      font-size: 9px;
-      color: var(--gb-black);
-      margin-bottom: 12px;
-      line-height: 1.5;
-    }
-    .dex-tags { display: flex; flex-wrap: wrap; gap: 5px; }
-    .dex-tag {
-      font-family: var(--pixel);
-      font-size: 6px;
-      background: var(--gb-mid);
-      color: var(--gb-black);
-      padding: 3px 7px;
-      border: 2px solid var(--gb-dark);
-    }
-    .dex-tag.rare {
-      background: var(--gb-yellow);
-      border-color: var(--gb-black);
-    }
+    /* SECURITY MAIN badge */
+    .main-badge { display: inline-flex; align-items: center; gap: 6px; background: var(--red); color: var(--white); font-family: var(--mono); font-size: 10px; padding: 4px 12px; border-radius: 20px; margin-bottom: 20px; }
+    .main-badge::before { content: '★'; font-size: 9px; }
 
-    /* ── CERT BADGES ── */
-    .badge-row { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 32px; }
-    .badge {
-      background: var(--gb-dark);
-      border: 4px solid var(--gb-mid);
-      box-shadow: 3px 3px 0 var(--gb-black);
-      padding: 12px 16px;
-      display: flex; align-items: center; gap: 10px;
-      color: var(--gb-white);
-    }
-    .badge-icon { font-size: 20px; }
-    .badge-name { font-family: var(--pixel); font-size: 7px; line-height: 1.8; }
-    .badge-date { font-family: var(--vt); font-size: 16px; color: var(--gb-light); }
+    .resp-block { margin-bottom: 24px; }
+    .resp-block-title { font-family: var(--display); font-size: 13px; font-weight: 600; color: var(--white); background: var(--black); display: inline-flex; align-items: center; gap: 8px; padding: 5px 14px; border-radius: 6px; margin-bottom: 14px; }
+    .resp-block-title .rb-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--red); flex-shrink: 0; }
+    .resp-block-title.secondary { background: var(--surface); color: var(--black); border: 1px solid var(--border); }
+    .resp-block-title.secondary .rb-dot { background: var(--silver); }
+    .resp-cols { display: grid; grid-template-columns: repeat(auto-fill, minmax(185px,1fr)); gap: 10px 24px; }
+    .resp-sub-title { font-size: 12px; font-weight: 600; color: var(--black); margin-bottom: 6px; }
+    .resp-list { list-style: none; }
+    .resp-list li { font-size: 13px; color: var(--gray); padding-left: 14px; position: relative; line-height: 1.65; }
+    .resp-list li::before { content: '—'; position: absolute; left: 0; color: var(--red); font-size: 11px; top: 3px; }
 
-    /* ── TIMELINE (battle log style) ── */
-    .battle-log { display: flex; flex-direction: column; gap: 0; }
-    .log-entry {
-      display: grid;
-      grid-template-columns: 160px 1fr;
-      gap: 0 24px;
-      padding: 28px 0;
-      border-bottom: 3px solid var(--gb-dark);
-    }
-    .log-entry:last-child { border-bottom: none; }
-    .log-left { padding-top: 2px; }
-    .log-period {
-      font-family: var(--pixel);
-      font-size: 7px; color: var(--gb-mid);
-      line-height: 1.8; letter-spacing: 1px;
-    }
-    .log-badge {
-      display: inline-block; margin-top: 8px;
-      font-family: var(--pixel); font-size: 6px;
-      padding: 3px 8px;
-      background: var(--gb-dark); color: var(--gb-yellow);
-      border: 2px solid var(--gb-mid);
-    }
-    .log-role {
-      font-family: var(--pixel);
-      font-size: 11px; color: var(--gb-white);
-      text-shadow: 2px 2px 0 var(--gb-dark);
-      line-height: 1.6; margin-bottom: 6px;
-    }
-    .log-company { font-family: var(--vt); font-size: 20px; color: var(--gb-mid); margin-bottom: 16px; }
+    /* ── SKILLS ── */
+    .skill-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .skill-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 12px; padding: 20px 22px; transition: border-color 0.18s, box-shadow 0.18s; }
+    .skill-card:hover { border-color: var(--red); box-shadow: 0 4px 20px rgba(204,0,0,0.08); }
+    .skill-card-top { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+    .mini-ball { width: 18px; height: 18px; border-radius: 50%; flex-shrink: 0; background: linear-gradient(to bottom, var(--red) 50%, var(--white) 50%); border: 2px solid var(--black); position: relative; }
+    .mini-ball::before { content: ''; position: absolute; top: calc(50% - 1px); left: 0; right: 0; height: 2px; background: var(--black); }
+    .mini-ball::after { content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); width: 5px; height: 5px; border-radius: 50%; background: var(--white); border: 1.5px solid var(--black); }
+    .skill-card-no { font-family: var(--mono); font-size: 10px; color: var(--silver); }
+    .skill-card-name { font-family: var(--display); font-size: 13px; font-weight: 600; color: var(--black); margin-bottom: 12px; }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .stag { font-family: var(--mono); font-size: 11px; padding: 3px 9px; border-radius: 4px; background: var(--surface); border: 1px solid var(--border); color: var(--black); }
+    .stag.hot { background: #FFF0F0; border-color: #FFBBBB; color: var(--red-dark); }
 
-    /* responsibility groups */
-    .resp-group { margin-bottom: 18px; }
-    .resp-group-title {
-      font-family: var(--pixel); font-size: 7px;
-      color: var(--gb-yellow);
-      letter-spacing: 1px;
-      margin-bottom: 10px;
-      padding-bottom: 6px;
-      border-bottom: 2px solid var(--gb-dark);
-    }
-    .resp-cols { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px,1fr)); gap: 8px 20px; }
-    .resp-sub-title { font-family: var(--pixel); font-size: 6.5px; color: var(--gb-white); margin-bottom: 5px; }
-    .resp-list { list-style: none; display: flex; flex-direction: column; gap: 3px; }
-    .resp-list li {
-      font-family: var(--vt); font-size: 17px; color: var(--gb-mid);
-      padding-left: 14px; position: relative; line-height: 1.3;
-    }
-    .resp-list li::before { content: '▸'; position: absolute; left: 0; color: var(--gb-yellow); font-size: 13px; top: 1px; }
+    /* cert badges */
+    .badge-section-title { font-family: var(--display); font-size: 15px; font-weight: 600; color: var(--black); margin: 40px 0 16px; display: flex; align-items: center; gap: 10px; }
+    .badge-section-title::before { content: ''; display: inline-block; width: 14px; height: 14px; border-radius: 50%; background: linear-gradient(to bottom, var(--red) 50%, var(--white) 50%); border: 2px solid var(--black); flex-shrink: 0; }
+    .badge-row { display: flex; flex-wrap: wrap; gap: 12px; }
+    .badge { display: flex; align-items: center; gap: 14px; background: var(--white); border: 1.5px solid var(--border); border-radius: 12px; padding: 14px 20px; transition: border-color 0.18s; }
+    .badge:hover { border-color: var(--red); }
+    .badge-icon { font-size: 22px; }
+    .badge-name { font-family: var(--sans); font-size: 13px; font-weight: 600; color: var(--black); }
+    .badge-date { font-family: var(--mono); font-size: 11px; color: var(--silver); margin-top: 2px; }
 
     /* ── CONTACT ── */
     .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-    .contact-card {
-      background: var(--gb-screen);
-      border: 4px solid var(--gb-dark);
-      box-shadow: 4px 4px 0 var(--gb-black);
-      padding: 18px 22px;
-      text-decoration: none;
-      display: flex; align-items: center; gap: 14px;
-      transition: transform 0.1s;
-      color: var(--gb-black);
-    }
-    .contact-card:hover { transform: translate(-2px,-2px); box-shadow: 6px 6px 0 var(--gb-black); }
-    .contact-icon { font-size: 24px; }
-    .contact-label { font-family: var(--pixel); font-size: 6px; color: var(--gb-dark); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 4px; }
-    .contact-value { font-family: var(--vt); font-size: 20px; color: var(--gb-black); }
+    .contact-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 12px; padding: 22px 26px; text-decoration: none; display: flex; align-items: center; gap: 16px; transition: border-color 0.18s, box-shadow 0.18s; }
+    .contact-card:hover { border-color: var(--red); box-shadow: 0 4px 20px rgba(204,0,0,0.08); }
+    .contact-icon { width: 44px; height: 44px; border-radius: 10px; background: var(--surface); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+    .contact-label { font-family: var(--mono); font-size: 10px; color: var(--silver); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 3px; }
+    .contact-value { font-size: 14px; font-weight: 500; color: var(--black); }
 
     /* ── FOOTER ── */
-    footer {
-      border-top: 4px solid var(--gb-dark);
-      padding: 24px;
-      text-align: center;
-    }
-    .footer-text { font-family: var(--pixel); font-size: 7px; color: var(--gb-dark); letter-spacing: 2px; }
-    .footer-text span { color: var(--gb-yellow); }
+    .footer { background: var(--black); padding: 32px 40px; }
+    .footer-inner { max-width: 1080px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
+    .footer-text { font-family: var(--mono); font-size: 11px; color: rgba(255,255,255,0.35); }
+    .footer-text span { color: var(--red); }
 
-    /* ── DIVIDER ── */
-    .pixel-divider {
-      height: 4px;
-      background: repeating-linear-gradient(90deg, var(--gb-dark) 0px, var(--gb-dark) 8px, transparent 8px, transparent 16px);
-      margin: 0;
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 700px) {
-      .dex-grid { grid-template-columns: 1fr 1fr; }
-      .log-entry { grid-template-columns: 1fr; gap: 8px; }
+    @media (max-width: 768px) {
+      nav { padding: 0 20px; }
+      .hero { padding: 90px 20px 60px; }
+      .hero::before, .hero::after { display: none; }
+      .stats-inner { padding: 0 20px; flex-wrap: wrap; }
+      .stat-item { flex: 1 1 50%; border-bottom: 1px solid rgba(255,255,255,0.2); }
+      .section, .life-inner { padding-left: 20px; padding-right: 20px; }
+      .skill-grid { grid-template-columns: 1fr 1fr; }
+      .exp-entry { grid-template-columns: 1fr; gap: 8px; }
       .contact-grid { grid-template-columns: 1fr; }
-      .card-stats { grid-template-columns: 1fr; }
-      nav { padding: 0 12px; }
-      .nav-links { gap: 12px; }
+      .footer { padding: 24px 20px; }
+      .footer-inner { flex-direction: column; gap: 10px; text-align: center; }
     }
     @media (max-width: 480px) {
-      .dex-grid { grid-template-columns: 1fr; }
-      .card-name { font-size: 12px; }
+      .skill-grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -376,234 +205,255 @@
 
 <!-- NAV -->
 <nav>
-  <div class="nav-logo">★ <span>KAURI</span>'s PAGE</div>
+  <div class="nav-logo"><div class="pokeball-icon"></div>KAURI</div>
   <ul class="nav-links">
-    <li><a href="#skills">SKILLS</a></li>
-    <li><a href="#experience">CAREER</a></li>
-    <li><a href="#contact">CONTACT</a></li>
+    <li><a href="#story">Story</a></li>
+    <li><a href="#experience">Career</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#contact">Contact</a></li>
   </ul>
 </nav>
 
-<!-- HERO — TRAINER CARD -->
+<!-- HERO -->
 <div class="hero">
-  <div class="trainer-card">
-    <div class="card-header">
-      <div>
-        <div class="card-title">TRAINER CARD</div>
-        <div class="card-name">INFRA &amp; <span>SECURITY</span><br>ENGINEER</div>
+  <div class="hero-inner">
+    <p class="hero-eyebrow">Security Engineer</p>
+    <h1>보안을 <span class="accent">지키는 사람,</span><br>포기를 모르는 사람.</h1>
+    <p class="hero-desc">항공에서 IT로, 역경 속에서 방향을 바꾼 끈기—<br>지금은 롯데이노베이트에서 클라우드 보안과 인프라를 책임집니다.</p>
+    <div class="trainer-card">
+      <div class="tc-header"><div class="tc-dot"></div>TRAINER CARD</div>
+      <div class="tc-body">
+        <div class="tc-field"><span class="tc-label">Name</span><span class="tc-value">유승현</span></div>
+        <div class="tc-field"><span class="tc-label">Company</span><span class="tc-value">롯데이노베이트</span></div>
+        <div class="tc-field"><span class="tc-label">Since</span><span class="tc-value">2022.02</span></div>
+        <div class="tc-field"><span class="tc-label">Specialty</span><span class="tc-value">AWS · Security</span></div>
       </div>
-      <div class="trainer-sprite">👨‍💻</div>
+      <div class="tc-footer">EXP<div class="tc-bar"><div class="tc-bar-fill"></div></div>5yr+</div>
     </div>
-
-    <div class="card-stats">
-      <div class="stat-row">
-        <span class="stat-label">TRAINER</span>
-        <span class="stat-val">유승현</span>
-      </div>
-      <div class="stat-row">
-        <span class="stat-label">SINCE</span>
-        <span class="stat-val">2022.02</span>
-      </div>
-      <div class="stat-row">
-        <span class="stat-label">COMPANY</span>
-        <span class="stat-val">롯데이노베이트</span>
-      </div>
-      <div class="stat-row">
-        <span class="stat-label">SPECIALTY</span>
-        <span class="stat-val">AWS · SECURITY</span>
-      </div>
-    </div>
-
-    <div class="hp-bar-wrap">
-      <div class="hp-label">EXP ──────────────────── 5yr+</div>
-      <div class="hp-bar"><div class="hp-fill"></div></div>
-    </div>
-
-    <div style="margin-top:20px; font-family:var(--vt); font-size:18px; color:var(--gb-dark); line-height:1.6;">
-      ▶ 온프레미스 서버 운영부터 AWS 클라우드 보안까지.<br>
-      ▶ ISMS · ISMS-P · ISO27001 인증 대응 경험 보유.<br>
-      ▶ DevOps 자동화 및 보안 관제 전문가.<br>
-      <span class="blink">█</span>
+    <div class="hero-cta">
+      <a href="#story" class="btn btn-primary">나의 이야기</a>
+      <a href="#experience" class="btn btn-secondary">경력 보기</a>
     </div>
   </div>
 </div>
 
-<div class="pixel-divider"></div>
-
-<!-- SKILLS -->
-<section class="section" id="skills">
-  <div class="section-label">POKÉDEX — SKILL DATA</div>
-  <div class="dex-grid">
-
-    <div class="dex-entry">
-      <div class="dex-no">No.001 — 서버 운영</div>
-      <div class="dex-name">SERVER<br>OPERATOR</div>
-      <div class="dex-tags">
-        <span class="dex-tag rare">Windows Server</span>
-        <span class="dex-tag rare">Linux</span>
-        <span class="dex-tag">AIX</span>
-        <span class="dex-tag">VMware</span>
-        <span class="dex-tag">Hyper-V</span>
-        <span class="dex-tag">NetBackup</span>
-      </div>
-    </div>
-
-    <div class="dex-entry">
-      <div class="dex-no">No.002 — 웹/미들웨어</div>
-      <div class="dex-name">WEB/MW<br>MASTER</div>
-      <div class="dex-tags">
-        <span class="dex-tag rare">Web Server</span>
-        <span class="dex-tag rare">WAS</span>
-        <span class="dex-tag">Middleware</span>
-        <span class="dex-tag">Nginx</span>
-        <span class="dex-tag">Apache</span>
-      </div>
-    </div>
-
-    <div class="dex-entry">
-      <div class="dex-no">No.003 — 클라우드</div>
-      <div class="dex-name">CLOUD<br>GUARDIAN</div>
-      <div class="dex-tags">
-        <span class="dex-tag rare">VPC</span>
-        <span class="dex-tag rare">IAM</span>
-        <span class="dex-tag rare">CloudTrail</span>
-        <span class="dex-tag">Security Group</span>
-        <span class="dex-tag">CloudWatch</span>
-        <span class="dex-tag">Load Balancer</span>
-      </div>
-    </div>
-
-    <div class="dex-entry">
-      <div class="dex-no">No.004 — 접근통제</div>
-      <div class="dex-name">ACCESS<br>CONTROLLER</div>
-      <div class="dex-tags">
-        <span class="dex-tag rare">Active Directory</span>
-        <span class="dex-tag rare">GPO</span>
-        <span class="dex-tag rare">SSO</span>
-        <span class="dex-tag">DNS</span>
-        <span class="dex-tag">IAM Policy</span>
-        <span class="dex-tag">SVN</span>
-      </div>
-    </div>
-
-    <div class="dex-entry">
-      <div class="dex-no">No.005 — 보안솔루션</div>
-      <div class="dex-name">SECURITY<br>SHIELD</div>
-      <div class="dex-tags">
-        <span class="dex-tag rare">DRM</span>
-        <span class="dex-tag rare">DLP</span>
-        <span class="dex-tag">VPN</span>
-        <span class="dex-tag">Tgate</span>
-        <span class="dex-tag">V3</span>
-        <span class="dex-tag">VDI</span>
-        <span class="dex-tag">NAC</span>
-      </div>
-    </div>
-
-    <div class="dex-entry">
-      <div class="dex-no">No.006 — 관제/모니터링</div>
-      <div class="dex-name">LOG<br>WATCHER</div>
-      <div class="dex-tags">
-        <span class="dex-tag rare">Splunk</span>
-        <span class="dex-tag rare">Zabbix</span>
-        <span class="dex-tag rare">Grafana</span>
-        <span class="dex-tag">CloudWatch</span>
-        <span class="dex-tag">ELK</span>
-      </div>
-    </div>
-
-    <div class="dex-entry">
-      <div class="dex-no">No.007 — DevOps</div>
-      <div class="dex-name">DEVOPS<br>DRAGONITE</div>
-      <div class="dex-tags">
-        <span class="dex-tag rare">Jenkins</span>
-        <span class="dex-tag rare">Docker</span>
-        <span class="dex-tag rare">Kubernetes</span>
-        <span class="dex-tag">Argo CD</span>
-        <span class="dex-tag">Helm</span>
-        <span class="dex-tag">GitHub Actions</span>
-      </div>
-    </div>
-
-    <div class="dex-entry">
-      <div class="dex-no">No.008 — 컴플라이언스</div>
-      <div class="dex-name">COMPLIANCE<br>CHAMPION</div>
-      <div class="dex-tags">
-        <span class="dex-tag rare">ISMS</span>
-        <span class="dex-tag rare">ISMS-P</span>
-        <span class="dex-tag rare">ISO27001</span>
-        <span class="dex-tag">개인정보보호법</span>
-        <span class="dex-tag">취약점 점검</span>
-      </div>
-    </div>
-
-    <div class="dex-entry">
-      <div class="dex-no">No.009 — 기타운영</div>
-      <div class="dex-name">ALL-ROUND<br>OPERATOR</div>
-      <div class="dex-tags">
-        <span class="dex-tag">SAP BC</span>
-        <span class="dex-tag">Pentaho</span>
-        <span class="dex-tag">TIBCO</span>
-        <span class="dex-tag">자산관리</span>
-        <span class="dex-tag">인증서관리</span>
-      </div>
-    </div>
-
+<!-- STATS -->
+<div class="stats-strip">
+  <div class="stats-inner">
+    <div class="stat-item"><div class="stat-num">5<sup>+</sup></div><div class="stat-label">YEARS EXP</div></div>
+    <div class="stat-item"><div class="stat-num">2</div><div class="stat-label">CERTIFICATIONS</div></div>
+    <div class="stat-item"><div class="stat-num">3</div><div class="stat-label">ISMS · ISMS-P · ISO</div></div>
+    <div class="stat-item"><div class="stat-num">30<sup>+</sup></div><div class="stat-label">TECH STACK</div></div>
   </div>
+</div>
 
-  <!-- BADGES -->
-  <div style="margin-top:32px; font-family:var(--pixel); font-size:9px; color:var(--gb-yellow); letter-spacing:2px; margin-bottom:16px;">
-    ★ GYM BADGES EARNED
-  </div>
-  <div class="badge-row">
-    <div class="badge">
-      <div class="badge-icon">🛡️</div>
-      <div>
-        <div class="badge-name">AWS CERTIFIED<br>SECURITY – SPECIALTY</div>
-        <div class="badge-date">2024.03.12</div>
-      </div>
+<!-- LIFE TIMELINE -->
+<div class="life-section" id="story">
+  <div class="life-inner">
+    <div class="life-head">
+      <div class="section-pokeball" style="border-color:rgba(255,255,255,0.3);"></div>
+      <h2 class="life-title">나의 이야기</h2>
     </div>
-    <div class="badge">
-      <div class="badge-icon">✈️</div>
-      <div>
-        <div class="badge-name">항공정비사</div>
-        <div class="badge-date">2020.10.28</div>
+    <p class="life-subtitle">// 포기를 선택지에 두지 않았던 20년의 기록</p>
+
+    <div class="tl-wrap">
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-period">2002.03 — 2014.02</div>
+        <div class="tl-title">초·중·고 학창 시절</div>
+        <div class="tl-sub">풍암초 → 풍암중 → 광덕고 · 광주</div>
+        <span class="tl-badge badge-edu">EDUCATION</span>
       </div>
-    </div>
-    <div class="badge">
-      <div class="badge-icon">🔐</div>
-      <div>
-        <div class="badge-name">ISMS / ISMS-P<br>인증 대응</div>
-        <div class="badge-date">심사 증적 관리</div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-period">2015.03 — 2016.02</div>
+        <div class="tl-title">조선대학교 입학</div>
+        <div class="tl-sub">새로운 시작, 미래를 향한 첫 발걸음.</div>
+        <span class="tl-badge badge-edu">UNIVERSITY</span>
       </div>
-    </div>
-    <div class="badge">
-      <div class="badge-icon">🌐</div>
-      <div>
-        <div class="badge-name">ISO 27001<br>인증 대응</div>
-        <div class="badge-date">내·외부 감사</div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-period">2016.02 — 2017.11</div>
+        <div class="tl-title">육군 복무</div>
+        <div class="tl-sub">군 복무를 통해 체계적인 조직 문화와 책임감을 익혔습니다.</div>
+        <span class="tl-badge badge-mil">MILITARY</span>
       </div>
+
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-period">2018.03 — 2018.06</div>
+        <div class="tl-title">조선대학교 복학</div>
+        <div class="tl-sub">전역 후 학업에 복귀, 다음 도전을 준비했습니다.</div>
+        <span class="tl-badge badge-edu">UNIVERSITY</span>
+      </div>
+
+      <div class="tl-item highlight">
+        <div class="tl-dot"></div>
+        <div class="tl-period">2019.02 — 2020.09</div>
+        <div class="tl-title">아시아나 항공정비사 양성과정 입과</div>
+        <div class="tl-sub">꿈을 향해 과감히 도전. 항공정비사의 길에 첫발을 내딛었습니다.</div>
+        <span class="tl-badge badge-air">AVIATION</span>
+      </div>
+
+      <div class="tl-item highlight">
+        <div class="tl-dot"></div>
+        <div class="tl-period">2020.11 — 2021.02</div>
+        <div class="tl-title">아시아나 B747 기종 교육 수료</div>
+        <div class="tl-sub">항공정비사 자격증 취득(2020.10), B747 기종 교육까지 완주했습니다.<br>하지만 코로나19로 인한 항공업계 붕괴로 현장 취업의 문이 닫혔습니다.</div>
+        <span class="tl-badge badge-air">AVIATION</span>
+        <div class="pivot-card">
+          <strong>✈ → 💻 &nbsp; 피벗 결정</strong><br>
+          코로나로 항공 업계가 멈췄을 때, 저는 포기 대신 <strong>방향 전환</strong>을 선택했습니다.<br>
+          힘들게 얻은 항공정비사 자격증을 뒤로하고, 새로운 분야에 도전하는 용기가 필요했습니다.
+        </div>
+      </div>
+
+      <div class="tl-item pivot">
+        <div class="tl-dot"></div>
+        <div class="tl-period">2021.07 — 2021.12</div>
+        <div class="tl-title">클라우드 융합 보안 전문가 양성과정</div>
+        <div class="tl-sub">SK쉴더스 주관 · IT 업계로의 완전한 전환점. 6개월간 보안과 클라우드에 몰입했습니다.</div>
+        <span class="tl-badge badge-it">IT BOOTCAMP</span>
+      </div>
+
+      <div class="tl-item highlight">
+        <div class="tl-dot"></div>
+        <div class="tl-period">2022.02 — 현재</div>
+        <div class="tl-title">롯데이노베이트 입사 · 현재까지</div>
+        <div class="tl-sub">6개월의 교육이 커리어로 이어졌습니다. 인프라 운영부터 AWS 보안까지,<br>끊임없이 배우고 성장하며 지금도 현장에서 활약 중입니다.</div>
+        <span class="tl-badge badge-work">CURRENT</span>
+      </div>
+
     </div>
   </div>
-</section>
+</div>
 
-<div class="pixel-divider"></div>
+<div class="stripe-divider"></div>
 
-<!-- EXPERIENCE -->
+<!-- EXPERIENCE — 보안 메인 -->
+<div style="background: var(--white);">
 <section class="section" id="experience">
-  <div class="section-label">BATTLE HISTORY — CAREER LOG</div>
-  <div class="battle-log">
-    <div class="log-entry">
-      <div class="log-left">
-        <div class="log-period">2022.02<br>— 현재</div>
-        <span class="log-badge">ACTIVE</span>
+  <div class="section-head">
+    <div class="section-pokeball"></div>
+    <h2 class="section-title">경력</h2>
+  </div>
+  <div>
+    <div class="exp-entry">
+      <div>
+        <div class="exp-period">2022.02<br>— 현재</div>
+        <span class="exp-active">재직 중</span>
       </div>
-      <div class="log-right">
-        <div class="log-role">인프라 &amp; 보안 담당</div>
-        <div class="log-company">롯데이노베이트 · 서울</div>
+      <div>
+        <div class="exp-role">인프라 &amp; 보안 담당</div>
+        <div class="exp-company">롯데이노베이트 · 서울</div>
 
-        <div class="resp-group">
-          <div class="resp-group-title">▸ 인프라 운영</div>
+        <!-- 보안 메인 -->
+        <div class="main-badge">SECURITY — MAIN ROLE</div>
+
+        <div class="resp-block">
+          <div class="resp-block-title"><span class="rb-dot"></span>보안 솔루션 운영</div>
+          <div class="resp-cols">
+            <div>
+              <div class="resp-sub-title">단말 및 정보유출 방지</div>
+              <ul class="resp-list">
+                <li>DRM · DLP · V3 백신 운영</li>
+                <li>VDI 운영</li>
+              </ul>
+            </div>
+            <div>
+              <div class="resp-sub-title">네트워크 접근통제</div>
+              <ul class="resp-list">
+                <li>VPN · Tgate · NAC 운영</li>
+              </ul>
+            </div>
+            <div>
+              <div class="resp-sub-title">보안 정책</div>
+              <ul class="resp-list">
+                <li>보안 정책 수립 및 개선</li>
+                <li>예외 정책 검토 및 사용자 가이드 지원</li>
+                <li>보안 운영 프로세스 개선</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="resp-block">
+          <div class="resp-block-title"><span class="rb-dot"></span>보안 관제 및 로그 분석</div>
+          <div class="resp-cols">
+            <div>
+              <div class="resp-sub-title">보안 이벤트 대응</div>
+              <ul class="resp-list">
+                <li>보안 관제 티켓 분석 및 이상 행위 대응</li>
+                <li>보안 이슈 조치 및 재발 방지 활동</li>
+              </ul>
+            </div>
+            <div>
+              <div class="resp-sub-title">로그 분석</div>
+              <ul class="resp-list">
+                <li>Splunk 운영 및 보안 로그 분석</li>
+                <li>CloudWatch · 시스템 로그 분석</li>
+              </ul>
+            </div>
+            <div>
+              <div class="resp-sub-title">모니터링</div>
+              <ul class="resp-list">
+                <li>Zabbix · Grafana · CloudWatch 운영</li>
+                <li>장애 예방 활동</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="resp-block">
+          <div class="resp-block-title"><span class="rb-dot"></span>AWS 보안 운영</div>
+          <div class="resp-cols">
+            <div>
+              <div class="resp-sub-title">클라우드 보안</div>
+              <ul class="resp-list">
+                <li>CloudTrail 로그 분석 및 이상 행위 탐지</li>
+                <li>클라우드 보안 구성 검토 및 취약점 점검</li>
+                <li>보안 개선 과제 수행</li>
+              </ul>
+            </div>
+            <div>
+              <div class="resp-sub-title">IAM 관리</div>
+              <ul class="resp-list">
+                <li>IAM Policy · Role 관리</li>
+                <li>사용자 권한 정기 검토</li>
+                <li>최소 권한 원칙 적용</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="resp-block">
+          <div class="resp-block-title"><span class="rb-dot"></span>보안 감사 및 컴플라이언스</div>
+          <div class="resp-cols">
+            <div>
+              <div class="resp-sub-title">인증 및 감사 대응</div>
+              <ul class="resp-list">
+                <li>ISMS · ISMS-P · ISO27001 대응</li>
+                <li>내·외부 감사 대응 및 심사 증적 관리</li>
+              </ul>
+            </div>
+            <div>
+              <div class="resp-sub-title">취약점 관리</div>
+              <ul class="resp-list">
+                <li>서버 취약점 점검 및 리스크 분석</li>
+                <li>취약점 개선 및 조치 계획 수립</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- 인프라 서브 -->
+        <div style="margin-top:32px; margin-bottom:16px; font-family:var(--mono); font-size:11px; color:var(--silver); letter-spacing:0.05em;">— INFRA SUPPORT ROLE</div>
+
+        <div class="resp-block">
+          <div class="resp-block-title secondary"><span class="rb-dot"></span>인프라 운영</div>
           <div class="resp-cols">
             <div>
               <div class="resp-sub-title">서버 구축 및 운영</div>
@@ -630,157 +480,49 @@
           </div>
         </div>
 
-        <div class="resp-group">
-          <div class="resp-group-title">▸ 계정 및 접근통제</div>
+        <div class="resp-block">
+          <div class="resp-block-title secondary"><span class="rb-dot"></span>계정 및 접근통제</div>
           <div class="resp-cols">
             <div>
               <div class="resp-sub-title">AD 및 계정 관리</div>
               <ul class="resp-list">
                 <li>Active Directory 운영 및 GPO 관리</li>
                 <li>사용자 계정 생성/변경/삭제 및 권한 관리</li>
+                <li>공용 PC · 개인 PC 정책 운영</li>
               </ul>
             </div>
             <div>
               <div class="resp-sub-title">인증 및 접근통제</div>
               <ul class="resp-list">
                 <li>DNS · IAM · SSO 운영</li>
-                <li>최소 권한 원칙 적용</li>
                 <li>SVN · Repository 권한 관리</li>
               </ul>
             </div>
             <div>
-              <div class="resp-sub-title">AWS IAM 관리</div>
-              <ul class="resp-list">
-                <li>IAM Policy · Role 관리</li>
-                <li>사용자 권한 정기 검토</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="resp-group">
-          <div class="resp-group-title">▸ 클라우드 (AWS)</div>
-          <div class="resp-cols">
-            <div>
-              <div class="resp-sub-title">AWS 인프라 운영</div>
+              <div class="resp-sub-title">AWS 인프라</div>
               <ul class="resp-list">
                 <li>VPC · Security Group · LB 운영</li>
                 <li>CloudWatch 운영 및 네트워크 보안 검토</li>
               </ul>
             </div>
-            <div>
-              <div class="resp-sub-title">AWS 보안 운영</div>
-              <ul class="resp-list">
-                <li>CloudTrail 로그 분석 및 이상 행위 탐지</li>
-                <li>클라우드 보안 구성 검토 및 취약점 점검</li>
-                <li>보안 개선 과제 수행</li>
-              </ul>
-            </div>
           </div>
         </div>
 
-        <div class="resp-group">
-          <div class="resp-group-title">▸ 보안 솔루션 운영</div>
+        <div class="resp-block">
+          <div class="resp-block-title secondary"><span class="rb-dot"></span>DevOps 및 자동화</div>
           <div class="resp-cols">
             <div>
-              <div class="resp-sub-title">단말 및 정보유출 방지</div>
-              <ul class="resp-list">
-                <li>DRM · DLP · V3 백신 운영</li>
-                <li>VDI 운영</li>
-              </ul>
-            </div>
-            <div>
-              <div class="resp-sub-title">네트워크 접근통제</div>
-              <ul class="resp-list">
-                <li>VPN · Tgate · NAC 운영</li>
-              </ul>
-            </div>
-            <div>
-              <div class="resp-sub-title">보안 정책</div>
-              <ul class="resp-list">
-                <li>보안 정책 수립 및 개선</li>
-                <li>예외 정책 검토 및 사용자 가이드 지원</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="resp-group">
-          <div class="resp-group-title">▸ 보안 관제 및 로그 분석</div>
-          <div class="resp-cols">
-            <div>
-              <div class="resp-sub-title">보안 이벤트 대응</div>
-              <ul class="resp-list">
-                <li>보안 관제 티켓 분석 및 이상 행위 대응</li>
-                <li>보안 이슈 조치 및 재발 방지 활동</li>
-              </ul>
-            </div>
-            <div>
-              <div class="resp-sub-title">로그 분석</div>
-              <ul class="resp-list">
-                <li>Splunk 운영 및 보안 로그 분석</li>
-                <li>CloudWatch · 시스템 로그 분석</li>
-              </ul>
-            </div>
-            <div>
-              <div class="resp-sub-title">모니터링</div>
-              <ul class="resp-list">
-                <li>Zabbix · Grafana · CloudWatch 운영</li>
-                <li>장애 예방 활동</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="resp-group">
-          <div class="resp-group-title">▸ 보안 감사 및 컴플라이언스</div>
-          <div class="resp-cols">
-            <div>
-              <div class="resp-sub-title">인증 및 감사 대응</div>
-              <ul class="resp-list">
-                <li>ISMS · ISMS-P · ISO27001 대응</li>
-                <li>내·외부 감사 대응 및 심사 증적 관리</li>
-              </ul>
-            </div>
-            <div>
-              <div class="resp-sub-title">정보보호 관리</div>
-              <ul class="resp-list">
-                <li>개인정보보호법 대응</li>
-                <li>정보보호 위험 분석 및 개선 과제 수행</li>
-              </ul>
-            </div>
-            <div>
-              <div class="resp-sub-title">취약점 관리</div>
-              <ul class="resp-list">
-                <li>서버 취약점 점검 및 리스크 분석</li>
-                <li>취약점 개선 및 조치 계획 수립</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-
-        <div class="resp-group">
-          <div class="resp-group-title">▸ DevOps 및 기타 운영</div>
-          <div class="resp-cols">
-            <div>
-              <div class="resp-sub-title">DevOps · 자동화</div>
+              <div class="resp-sub-title">CI/CD · Container</div>
               <ul class="resp-list">
                 <li>Jenkins 운영 및 배포 자동화</li>
-                <li>Docker · Kubernetes · Argo CD · Helm</li>
+                <li>Docker · Kubernetes 운영</li>
               </ul>
             </div>
             <div>
-              <div class="resp-sub-title">SAP · EAI</div>
+              <div class="resp-sub-title">GitOps · 자산</div>
               <ul class="resp-list">
-                <li>SAP BC · 계정/권한/배포 관리</li>
-                <li>Pentaho · TIBCO 운영</li>
-              </ul>
-            </div>
-            <div>
-              <div class="resp-sub-title">자산 · 프로젝트</div>
-              <ul class="resp-list">
+                <li>Argo CD · Helm 운영</li>
                 <li>IT 자산·라이선스·인증서 관리</li>
-                <li>인프라 구축 · 보안 개선 프로젝트</li>
               </ul>
             </div>
           </div>
@@ -790,36 +532,65 @@
     </div>
   </div>
 </section>
+</div>
 
-<div class="pixel-divider"></div>
+<div class="stripe-divider"></div>
+
+<!-- SKILLS -->
+<div style="background: var(--surface);">
+<section class="section" id="skills">
+  <div class="section-head">
+    <div class="section-pokeball"></div>
+    <h2 class="section-title">기술 스택</h2>
+  </div>
+  <div class="skill-grid">
+    <div class="skill-card"><div class="skill-card-top"><div class="mini-ball"></div><span class="skill-card-no">No.001</span></div><div class="skill-card-name">보안 솔루션</div><div class="skill-tags"><span class="stag hot">DRM</span><span class="stag hot">DLP</span><span class="stag hot">Splunk</span><span class="stag">VPN</span><span class="stag">Tgate</span><span class="stag">V3</span><span class="stag">VDI</span><span class="stag">NAC</span></div></div>
+    <div class="skill-card"><div class="skill-card-top"><div class="mini-ball"></div><span class="skill-card-no">No.002</span></div><div class="skill-card-name">Cloud Security · AWS</div><div class="skill-tags"><span class="stag hot">IAM</span><span class="stag hot">CloudTrail</span><span class="stag hot">VPC</span><span class="stag">Security Group</span><span class="stag">CloudWatch</span><span class="stag">Load Balancer</span></div></div>
+    <div class="skill-card"><div class="skill-card-top"><div class="mini-ball"></div><span class="skill-card-no">No.003</span></div><div class="skill-card-name">접근통제 · 계정</div><div class="skill-tags"><span class="stag hot">Active Directory</span><span class="stag hot">GPO</span><span class="stag hot">SSO</span><span class="stag">DNS</span><span class="stag">IAM Policy</span><span class="stag">SVN</span></div></div>
+    <div class="skill-card"><div class="skill-card-top"><div class="mini-ball"></div><span class="skill-card-no">No.004</span></div><div class="skill-card-name">컴플라이언스</div><div class="skill-tags"><span class="stag hot">ISMS</span><span class="stag hot">ISMS-P</span><span class="stag hot">ISO27001</span><span class="stag">취약점 점검</span></div></div>
+    <div class="skill-card"><div class="skill-card-top"><div class="mini-ball"></div><span class="skill-card-no">No.005</span></div><div class="skill-card-name">관제 · 모니터링</div><div class="skill-tags"><span class="stag hot">Splunk</span><span class="stag hot">Zabbix</span><span class="stag hot">Grafana</span><span class="stag">CloudWatch</span><span class="stag">ELK</span></div></div>
+    <div class="skill-card"><div class="skill-card-top"><div class="mini-ball"></div><span class="skill-card-no">No.006</span></div><div class="skill-card-name">서버 운영</div><div class="skill-tags"><span class="stag hot">Windows Server</span><span class="stag hot">Linux</span><span class="stag">AIX</span><span class="stag">VMware</span><span class="stag">Hyper-V</span><span class="stag">NetBackup</span></div></div>
+    <div class="skill-card"><div class="skill-card-top"><div class="mini-ball"></div><span class="skill-card-no">No.007</span></div><div class="skill-card-name">웹 / 미들웨어</div><div class="skill-tags"><span class="stag hot">Web Server</span><span class="stag hot">WAS</span><span class="stag">Middleware</span><span class="stag">Nginx</span><span class="stag">Apache</span></div></div>
+    <div class="skill-card"><div class="skill-card-top"><div class="mini-ball"></div><span class="skill-card-no">No.008</span></div><div class="skill-card-name">DevOps · 자동화</div><div class="skill-tags"><span class="stag hot">Jenkins</span><span class="stag hot">Docker</span><span class="stag hot">Kubernetes</span><span class="stag">Argo CD</span><span class="stag">Helm</span><span class="stag">GitHub Actions</span></div></div>
+    <div class="skill-card"><div class="skill-card-top"><div class="mini-ball"></div><span class="skill-card-no">No.009</span></div><div class="skill-card-name">자산 · 프로젝트</div><div class="skill-tags"><span class="stag">IT 자산관리</span><span class="stag">라이선스 관리</span><span class="stag">인증서 관리</span><span class="stag">인프라 구축</span><span class="stag">보안 개선</span></div></div>
+  </div>
+
+  <div class="badge-section-title">자격증 · 인증</div>
+  <div class="badge-row">
+    <div class="badge"><div class="badge-icon">🛡️</div><div><div class="badge-name">AWS Certified Security – Specialty</div><div class="badge-date">Amazon Web Services · 2024.03.12</div></div></div>
+    <div class="badge"><div class="badge-icon">✈️</div><div><div class="badge-name">항공정비사</div><div class="badge-date">국토교통부 · 2020.10.28</div></div></div>
+    <div class="badge"><div class="badge-icon">🔐</div><div><div class="badge-name">ISMS / ISMS-P 인증 대응</div><div class="badge-date">심사 증적 관리</div></div></div>
+    <div class="badge"><div class="badge-icon">🌐</div><div><div class="badge-name">ISO 27001 인증 대응</div><div class="badge-date">내·외부 감사 대응</div></div></div>
+  </div>
+</section>
+</div>
+
+<div class="stripe-divider"></div>
 
 <!-- CONTACT -->
 <section class="section" id="contact">
-  <div class="section-label">TRAINER INFO — CONTACT</div>
+  <div class="section-head">
+    <div class="section-pokeball"></div>
+    <h2 class="section-title">연락처</h2>
+  </div>
   <div class="contact-grid">
     <a href="mailto:kauri5506@naver.com" class="contact-card">
       <div class="contact-icon">✉️</div>
-      <div>
-        <div class="contact-label">EMAIL</div>
-        <div class="contact-value">kauri5506@naver.com</div>
-      </div>
+      <div><div class="contact-label">Email</div><div class="contact-value">kauri5506@naver.com</div></div>
     </a>
     <a href="https://www.linkedin.com/in/%EC%8A%B9%ED%98%84-%EC%9C%A0-955b2b30a" target="_blank" class="contact-card">
       <div class="contact-icon">💼</div>
-      <div>
-        <div class="contact-label">LINKEDIN</div>
-        <div class="contact-value">유승현 · LinkedIn</div>
-      </div>
+      <div><div class="contact-label">LinkedIn</div><div class="contact-value">유승현 · LinkedIn</div></div>
     </a>
   </div>
 </section>
 
-<footer>
-  <div class="footer-text">
-    © 2025 <span>KAURI5506</span> · BUILT WITH GITHUB PAGES<br>
-    <span style="color:var(--gb-mid);">GOTTA DEPLOY 'EM ALL</span>
+<div class="footer">
+  <div class="footer-inner">
+    <span class="footer-text">© 2025 <span>KAURI5506</span> · Built with GitHub Pages</span>
+    <span class="footer-text">Security <span>·</span> Infrastructure</span>
   </div>
-</footer>
+</div>
 
 </body>
 </html>
