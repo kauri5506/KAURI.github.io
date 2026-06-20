@@ -178,7 +178,7 @@
     }
     .proj-card:hover { border-color: var(--red); box-shadow: 0 6px 28px rgba(204,0,0,0.08); }
 
-    /* 닫힌 상태 헤더 — 도트 스프라이트 우측 배치 */
+    /* ── 헤더 ── */
     .proj-header {
       display: flex; align-items: center; gap: 20px;
       padding: 20px 24px; cursor: pointer;
@@ -190,38 +190,121 @@
     .proj-name { font-family: var(--display); font-size: 17px; font-weight: 700; color: var(--black); line-height: 1.3; margin-bottom: 4px; }
     .proj-sub { font-size: 13px; color: var(--silver); line-height: 1.5; }
 
-    .proj-header-right {
-      display: flex; flex-direction: column; align-items: center; gap: 4px; flex-shrink: 0;
+    /* 닫힌 상태 — 포케볼 */
+    .proj-header-right { display: flex; flex-direction: column; align-items: center; gap: 6px; flex-shrink: 0; }
+    .proj-pokeball-btn {
+      width: 56px; height: 56px; border-radius: 50%;
+      background: linear-gradient(to bottom, var(--red) 50%, var(--white) 50%);
+      border: 3px solid var(--black);
+      position: relative;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 2px 4px 10px rgba(0,0,0,0.2);
     }
-    .proj-dot {
-      width: 80px; height: 80px;
-      image-rendering: pixelated;
-      transition: transform 0.2s;
+    .proj-pokeball-btn::before {
+      content: ''; position: absolute; top: calc(50% - 3px); left: 0; right: 0; height: 6px; background: var(--black);
     }
-    .proj-card:hover .proj-dot { transform: translateY(-3px); }
-    .proj-dot-name { font-family: var(--mono); font-size: 9px; color: var(--silver); }
+    .proj-pokeball-btn::after {
+      content: ''; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+      width: 16px; height: 16px; border-radius: 50%;
+      background: var(--white); border: 3px solid var(--black);
+    }
+    .proj-card:hover .proj-pokeball-btn {
+      transform: rotate(-15deg) scale(1.08);
+      box-shadow: 3px 6px 16px rgba(0,0,0,0.25);
+    }
+    .proj-card.open .proj-pokeball-btn {
+      animation: ballopen 0.4s ease-out forwards;
+    }
+    @keyframes ballopen {
+      0%   { transform: scale(1) rotate(0deg); }
+      30%  { transform: scale(1.15) rotate(-20deg); }
+      60%  { transform: scale(0.9) rotate(10deg); }
+      100% { transform: scale(1) rotate(0deg); opacity: 0.4; }
+    }
     .proj-chevron { font-size: 11px; color: var(--silver); transition: transform 0.2s; }
     .proj-card.open .proj-chevron { transform: rotate(180deg); }
 
-    /* 열린 상태 body */
-    .proj-body { display: none; border-top: 1px solid var(--border); position: relative; min-height: 200px; }
+    /* ── 열린 body ── */
+    .proj-body { display: none; border-top: 1px solid var(--border); position: relative; overflow: hidden; min-height: 180px; }
     .proj-card.open .proj-body { display: block; }
 
-    /* 포켓몬 — 우하단에 자연스럽게 */
-    .poke-float {
-      position: absolute; right: -10px; bottom: -10px;
-      width: 200px; pointer-events: none; z-index: 1;
-      animation: pokefloat 3s ease-in-out infinite;
+    /* 포켓몬 나오는 플래시 오버레이 */
+    .proj-card.open .proj-body::before {
+      content: '';
+      position: absolute; inset: 0; z-index: 10;
+      background: white;
+      animation: pokéflash 0.35s ease-out forwards;
+      pointer-events: none;
     }
-    .poke-float img { width: 200px; }
-    @keyframes pokefloat {
-      0%,100% { transform: translateY(0px); }
-      50%      { transform: translateY(-10px); }
+    @keyframes pokéflash {
+      0%   { opacity: 0.9; }
+      100% { opacity: 0; }
     }
 
+    /* 포켓몬 장면 공통 */
+    .poke-scene {
+      position: absolute; right: 0; bottom: 0;
+      width: 300px; height: 100%;
+      pointer-events: none; z-index: 1;
+    }
+    /* 포켓몬 등장 애니메이션 */
+    .poke-main {
+      position: absolute;
+      animation: pokeappear 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards, pokefloat 3s ease-in-out 0.5s infinite;
+    }
+    @keyframes pokeappear {
+      0%   { transform: scale(0) translateY(30px); opacity: 0; }
+      60%  { transform: scale(1.1) translateY(-5px); opacity: 1; }
+      100% { transform: scale(1) translateY(0px); opacity: 1; }
+    }
+    @keyframes pokefloat {
+      0%,100% { transform: translateY(0px); }
+      50%     { transform: translateY(-10px); }
+    }
+
+    /* 핫삼 장면 */
+    .poke-scene.scizor .poke-main { right: 16px; bottom: -8px; }
+    .poke-scene.scizor .poke-main img { width: 170px; }
+    .poke-scene.scizor .poke-item {
+      position: absolute; right: 158px; bottom: 95px;
+      font-size: 34px;
+      animation: pokeappear 0.6s 0.3s both, itemwiggle 1.8s ease-in-out 0.9s infinite;
+    }
+    @keyframes itemwiggle {
+      0%,100% { transform: rotate(-12deg) translateY(0); }
+      50%     { transform: rotate(12deg) translateY(-5px); }
+    }
+
+    /* 리자몽 장면 */
+    .poke-scene.charizard .poke-main { right: 10px; bottom: -8px; }
+    .poke-scene.charizard .poke-main img { width: 185px; }
+    .poke-scene.charizard .fire1 { position:absolute; right:208px; bottom:70px; font-size:30px; animation: pokeappear 0.4s 0.5s both, fireflicker 0.55s ease-in-out 0.9s infinite alternate; }
+    .poke-scene.charizard .fire2 { position:absolute; right:225px; bottom:95px; font-size:22px; animation: pokeappear 0.4s 0.6s both, fireflicker 0.45s ease-in-out 0.95s infinite alternate-reverse; }
+    .poke-scene.charizard .fire3 { position:absolute; right:190px; bottom:98px; font-size:18px; animation: pokeappear 0.4s 0.7s both, fireflicker 0.65s ease-in-out 1.0s infinite alternate; }
+    .poke-scene.charizard .bug   { position:absolute; right:208px; bottom:60px; font-size:22px; animation: pokeappear 0.4s 0.4s both, bugburn 1.4s ease-in-out 0.9s infinite; }
+    @keyframes fireflicker { 0%{transform:scale(1) translateY(0);opacity:1} 100%{transform:scale(1.25) translateY(-6px);opacity:0.7} }
+    @keyframes bugburn { 0%,100%{transform:scale(1) rotate(0deg);opacity:0.85} 50%{transform:scale(0.75) rotate(20deg);opacity:0.3} }
+
+    /* 메타몽 장면 */
+    .poke-scene.ditto .poke-main { right: 160px; bottom: 16px; }
+    .poke-scene.ditto .poke-main img { width: 110px; }
+    .poke-scene.ditto .ditto-arrow {
+      position:absolute; right:100px; bottom:52px; font-size:24px; color:#888;
+      animation: pokeappear 0.4s 0.7s both, arrowpulse 1s ease-in-out 1.1s infinite;
+    }
+    .poke-scene.ditto .ditto-server {
+      position:absolute; right:10px; bottom:12px;
+      font-size:11px; font-family:var(--mono);
+      background:var(--black); color:#00ff41; padding:10px 12px;
+      border-radius:8px; border:2px solid #00ff41; line-height:1.9;
+      box-shadow: 0 0 12px rgba(0,255,65,0.35);
+      animation: pokeappear 0.5s 0.8s both, serverpulse 2s ease-in-out 1.3s infinite;
+    }
+    @keyframes arrowpulse { 0%,100%{transform:translateX(0);opacity:1} 50%{transform:translateX(5px);opacity:0.4} }
+    @keyframes serverpulse { 0%,100%{box-shadow:0 0 12px rgba(0,255,65,0.35)} 50%{box-shadow:0 0 22px rgba(0,255,65,0.7)} }
+
     .proj-bullets {
-      list-style: none;
-      padding: 20px 220px 20px 28px;
+      list-style: none; padding: 20px 310px 24px 28px;
       display: flex; flex-direction: column; gap: 8px;
       position: relative; z-index: 2;
     }
@@ -881,7 +964,7 @@
   </div>
   <div class="proj-grid">
 
-    <!-- 1. SSL 인증서 — 핫삼 -->
+    <!-- SSL — 핫삼이 집게로 자물쇠 꽉 잡는 장면 -->
     <div class="proj-card" onclick="this.classList.toggle('open')">
       <div class="proj-header">
         <div class="proj-header-left">
@@ -890,16 +973,16 @@
           <div class="proj-sub">SSL/TLS 인증서 수명 단축 대응을 위한 인증서 자동화 관리 체계 구축</div>
         </div>
         <div class="proj-header-right">
-          <img class="proj-dot"
-            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/212.png"
-            alt="핫삼"/>
-          <div class="proj-dot-name">핫삼</div>
+          <div class="proj-pokeball-btn"></div>
           <div class="proj-chevron">▼</div>
         </div>
       </div>
       <div class="proj-body">
-        <div class="poke-float">
-          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/212.png" alt="핫삼"/>
+        <div class="poke-scene scizor">
+          <div class="poke-item">🔒</div>
+          <div class="poke-main">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/212.png" alt="핫삼"/>
+          </div>
         </div>
         <ul class="proj-bullets">
           <li>SSL/TLS 인증서 유효기간 단축 정책 변화에 대응하기 위한 인증서 자동 갱신 솔루션 검토 및 도입 프로젝트 참여</li>
@@ -913,7 +996,7 @@
       </div>
     </div>
 
-    <!-- 2. 취약점 진단 — 리자몽 -->
+    <!-- 취약점 — 리자몽이 불꽃으로 버그 태우는 장면 -->
     <div class="proj-card" onclick="this.classList.toggle('open')">
       <div class="proj-header">
         <div class="proj-header-left">
@@ -922,16 +1005,19 @@
           <div class="proj-sub">보안 감사 대응 및 취약점 관리 체계 고도화를 위한 취약점 진단 자동화 플랫폼 도입</div>
         </div>
         <div class="proj-header-right">
-          <img class="proj-dot"
-            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/6.png"
-            alt="리자몽"/>
-          <div class="proj-dot-name">리자몽</div>
+          <div class="proj-pokeball-btn"></div>
           <div class="proj-chevron">▼</div>
         </div>
       </div>
       <div class="proj-body">
-        <div class="poke-float">
-          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png" alt="리자몽"/>
+        <div class="poke-scene charizard">
+          <div class="bug">🐛</div>
+          <div class="fire1">🔥</div>
+          <div class="fire2">🔥</div>
+          <div class="fire3">🔥</div>
+          <div class="poke-main">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/6.png" alt="리자몽"/>
+          </div>
         </div>
         <ul class="proj-bullets">
           <li>내부 감사, ISMS 및 정보보호 점검 대응 효율성 향상을 위한 취약점 진단 자동화 솔루션 도입 프로젝트 수행</li>
@@ -948,7 +1034,7 @@
       </div>
     </div>
 
-    <!-- 3. Nutanix — 메타몽 -->
+    <!-- Nutanix — 메타몽이 서버 보고 변신하는 장면 -->
     <div class="proj-card" onclick="this.classList.toggle('open')">
       <div class="proj-header">
         <div class="proj-header-left">
@@ -957,16 +1043,17 @@
           <div class="proj-sub">하드웨어 EOS(End of Support) 대응을 위한 온프레미스 서버 가상화 전환 프로젝트</div>
         </div>
         <div class="proj-header-right">
-          <img class="proj-dot"
-            src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png"
-            alt="메타몽"/>
-          <div class="proj-dot-name">메타몽</div>
+          <div class="proj-pokeball-btn"></div>
           <div class="proj-chevron">▼</div>
         </div>
       </div>
       <div class="proj-body">
-        <div class="poke-float">
-          <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/132.png" alt="메타몽"/>
+        <div class="poke-scene ditto">
+          <div class="poke-main">
+            <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/132.png" alt="메타몽"/>
+          </div>
+          <div class="ditto-arrow">➜</div>
+          <div class="ditto-server">🖥️ SERVER<br>▓▓▓▓░░ 68%<br>[TRANSFORM]<br>■ CPU: OK<br>■ MEM: OK</div>
         </div>
         <ul class="proj-bullets">
           <li>노후 물리 서버의 하드웨어 EOS 도래에 따른 Nutanix 기반 가상화 인프라 도입 프로젝트 수행</li>
