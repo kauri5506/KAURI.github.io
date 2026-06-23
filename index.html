@@ -281,6 +281,17 @@
       color: rgba(255,255,255,0.45); text-align: center;
     }
 
+    /* ── CERT SVG BADGES ── */
+    .cert-svg {
+      transition: transform 0.22s, filter 0.22s;
+      filter: drop-shadow(0 6px 14px rgba(0,0,0,0.45));
+      cursor: default;
+    }
+    .cert-pin:hover .cert-svg {
+      transform: translateY(-8px) rotate(6deg) scale(1.1);
+      filter: drop-shadow(0 12px 24px rgba(0,0,0,0.55)) brightness(1.12);
+    }
+
     /* ── CONTACT ── */
     .contact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
     .contact-card { background: var(--white); border: 1.5px solid var(--border); border-radius: 12px; padding: 22px 26px; text-decoration: none; display: flex; align-items: center; gap: 16px; transition: border-color 0.18s, box-shadow 0.18s; }
@@ -694,140 +705,129 @@
     <div class="cert-case-label">BADGE COLLECTION</div>
     <div class="cert-pin-grid">
 
+      <!-- AWS — 강철 타입: 육각형 -->
       <div class="cert-pin">
-        <!-- 강철 타입: 육각형 금속 -->
-        <div class="cert-pin-emblem steel">
-          <svg viewBox="0 0 96 96" width="96" height="96" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="steelGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style="stop-color:#E8E8F0"/>
-                <stop offset="40%" style="stop-color:#A8B0C0"/>
-                <stop offset="100%" style="stop-color:#606878"/>
-              </linearGradient>
-              <linearGradient id="steelRing" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style="stop-color:#d4af37"/>
-                <stop offset="50%" style="stop-color:#f5e17a"/>
-                <stop offset="100%" style="stop-color:#a07c20"/>
-              </linearGradient>
-              <filter id="steelShadow"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="rgba(0,0,0,0.6)"/></filter>
-            </defs>
-            <!-- 골드 외곽 링 (육각형) -->
-            <polygon points="48,4 88,26 88,70 48,92 8,70 8,26" fill="url(#steelRing)" filter="url(#steelShadow)"/>
-            <!-- 안쪽 강철 육각형 -->
-            <polygon points="48,11 82,30 82,66 48,85 14,66 14,30" fill="url(#steelGrad)"/>
-            <!-- 하이라이트 -->
-            <polygon points="48,15 75,31 75,40 48,24 21,40 21,31" fill="rgba(255,255,255,0.2)"/>
-            <!-- AWS 심볼 -->
-            <text x="48" y="56" text-anchor="middle" font-size="28" font-family="Arial Black" font-weight="900" fill="#2C3E50">☁</text>
-            <text x="48" y="72" text-anchor="middle" font-size="9" font-family="Arial" font-weight="700" fill="#4A5568" letter-spacing="1">AWS</text>
-          </svg>
-        </div>
+        <svg viewBox="0 0 110 110" width="110" height="110" class="cert-svg">
+          <defs>
+            <linearGradient id="g1a" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#D0D8E8"/>
+              <stop offset="50%" stop-color="#8899B8"/>
+              <stop offset="100%" stop-color="#556688"/>
+            </linearGradient>
+            <linearGradient id="g1b" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#d4af37"/>
+              <stop offset="50%" stop-color="#f5e17a"/>
+              <stop offset="100%" stop-color="#a07c20"/>
+            </linearGradient>
+            <filter id="s1"><feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="rgba(0,0,0,0.55)"/></filter>
+          </defs>
+          <!-- 골드 외곽 육각형 -->
+          <polygon points="55,6 100,30 100,80 55,104 10,80 10,30" fill="url(#g1b)" filter="url(#s1)"/>
+          <!-- 안쪽 -->
+          <polygon points="55,14 92,34 92,76 55,96 18,76 18,34" fill="url(#g1a)"/>
+          <!-- 내부 장식 — 육각 그물 -->
+          <polygon points="55,28 74,38 74,58 55,68 36,58 36,38" fill="none" stroke="rgba(255,255,255,0.25)" stroke-width="1.5"/>
+          <line x1="55" y1="28" x2="55" y2="68" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+          <line x1="36" y1="38" x2="74" y2="58" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+          <line x1="74" y1="38" x2="36" y2="58" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+          <!-- 하이라이트 -->
+          <polygon points="55,14 92,34 92,44 55,24 18,44 18,34" fill="rgba(255,255,255,0.18)"/>
+          <!-- 중앙 심볼 -->
+          <text x="55" y="62" text-anchor="middle" font-size="26" font-family="Arial">☁️</text>
+          <!-- 하단 텍스트 -->
+        </svg>
         <div class="cert-pin-name">AWS Certified<br>Security – Specialty</div>
         <div class="cert-pin-date">2024.03.12</div>
       </div>
 
+      <!-- 항공정비사 — 비행 타입: 방패 날개형 -->
       <div class="cert-pin">
-        <!-- 비행 타입: 날개 모양 -->
-        <div class="cert-pin-emblem flying">
-          <svg viewBox="0 0 96 96" width="96" height="96" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <linearGradient id="flyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style="stop-color:#B0D4F8"/>
-                <stop offset="50%" style="stop-color:#5BA3E8"/>
-                <stop offset="100%" style="stop-color:#2970C8"/>
-              </linearGradient>
-              <linearGradient id="flyRing" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style="stop-color:#d4af37"/>
-                <stop offset="50%" style="stop-color:#f5e17a"/>
-                <stop offset="100%" style="stop-color:#a07c20"/>
-              </linearGradient>
-              <filter id="flyShadow"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="rgba(0,0,0,0.5)"/></filter>
-            </defs>
-            <!-- 골드 외곽 날개 원형 -->
-            <ellipse cx="48" cy="48" rx="44" ry="44" fill="url(#flyRing)" filter="url(#flyShadow)"/>
-            <!-- 날개 모양 클리핑 배경 -->
-            <ellipse cx="48" cy="48" rx="37" ry="37" fill="url(#flyGrad)"/>
-            <!-- 왼쪽 날개 -->
-            <path d="M48,48 C38,30 12,22 8,38 C14,44 30,44 48,48Z" fill="rgba(255,255,255,0.35)"/>
-            <!-- 오른쪽 날개 -->
-            <path d="M48,48 C58,30 84,22 88,38 C82,44 66,44 48,48Z" fill="rgba(255,255,255,0.35)"/>
-            <!-- 하이라이트 -->
-            <ellipse cx="38" cy="28" rx="10" ry="6" fill="rgba(255,255,255,0.25)" transform="rotate(-20,38,28)"/>
-            <!-- 비행기 심볼 -->
-            <text x="48" y="58" text-anchor="middle" font-size="26">✈️</text>
-          </svg>
-        </div>
+        <svg viewBox="0 0 110 110" width="110" height="110" class="cert-svg">
+          <defs>
+            <linearGradient id="g2a" x1="20%" y1="0%" x2="80%" y2="100%">
+              <stop offset="0%" stop-color="#C8E8FF"/>
+              <stop offset="50%" stop-color="#5BA8F0"/>
+              <stop offset="100%" stop-color="#2255BB"/>
+            </linearGradient>
+            <linearGradient id="g2b" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#d4af37"/>
+              <stop offset="50%" stop-color="#f5e17a"/>
+              <stop offset="100%" stop-color="#a07c20"/>
+            </linearGradient>
+            <filter id="s2"><feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="rgba(0,0,0,0.5)"/></filter>
+          </defs>
+          <!-- 골드 외곽 방패 -->
+          <path d="M55,5 L100,22 L100,62 C100,85 55,106 55,106 C55,106 10,85 10,62 L10,22 Z" fill="url(#g2b)" filter="url(#s2)"/>
+          <!-- 안쪽 방패 -->
+          <path d="M55,14 L92,28 L92,62 C92,80 55,98 55,98 C55,98 18,80 18,62 L18,28 Z" fill="url(#g2a)"/>
+          <!-- 날개 장식 -->
+          <path d="M55,45 C40,32 18,30 18,42 C26,46 40,46 55,50Z" fill="rgba(255,255,255,0.28)"/>
+          <path d="M55,45 C70,32 92,30 92,42 C84,46 70,46 55,50Z" fill="rgba(255,255,255,0.28)"/>
+          <!-- 하이라이트 -->
+          <path d="M55,14 L92,28 L92,36 L55,22 L18,36 L18,28Z" fill="rgba(255,255,255,0.2)"/>
+          <text x="55" y="72" text-anchor="middle" font-size="26" font-family="Arial">✈️</text>
+        </svg>
         <div class="cert-pin-name">항공정비사</div>
         <div class="cert-pin-date">2020.10.28</div>
       </div>
 
+      <!-- ISMS — 불 타입: 다이아몬드 -->
       <div class="cert-pin">
-        <!-- 불 타입: 불꽃 모양 -->
-        <div class="cert-pin-emblem fire">
-          <svg viewBox="0 0 96 96" width="96" height="96" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <radialGradient id="fireGrad" cx="50%" cy="70%" r="60%">
-                <stop offset="0%" style="stop-color:#FFE033"/>
-                <stop offset="40%" style="stop-color:#FF6B00"/>
-                <stop offset="100%" style="stop-color:#CC0000"/>
-              </radialGradient>
-              <linearGradient id="fireRing" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style="stop-color:#d4af37"/>
-                <stop offset="50%" style="stop-color:#f5e17a"/>
-                <stop offset="100%" style="stop-color:#a07c20"/>
-              </linearGradient>
-              <filter id="fireShadow"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="rgba(0,0,0,0.5)"/></filter>
-              <filter id="fireGlow"><feGaussianBlur stdDeviation="2" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
-            </defs>
-            <!-- 골드 외곽 불꽃 원형 -->
-            <circle cx="48" cy="48" r="44" fill="url(#fireRing)" filter="url(#fireShadow)"/>
-            <!-- 불꽃 배경 -->
-            <circle cx="48" cy="48" r="37" fill="url(#fireGrad)"/>
-            <!-- 불꽃 모양 장식 -->
-            <path d="M48,18 C50,28 60,30 58,22 C66,30 64,44 56,46 C60,36 52,34 50,44 C46,36 40,38 42,48 C36,44 34,32 42,26 C38,34 44,36 48,18Z" fill="rgba(255,220,50,0.7)" filter="url(#fireGlow)"/>
-            <!-- 하이라이트 -->
-            <ellipse cx="36" cy="32" rx="8" ry="5" fill="rgba(255,255,255,0.2)" transform="rotate(-15,36,32)"/>
-            <!-- 불 심볼 -->
-            <text x="48" y="72" text-anchor="middle" font-size="26">🔥</text>
-          </svg>
-        </div>
+        <svg viewBox="0 0 110 110" width="110" height="110" class="cert-svg">
+          <defs>
+            <radialGradient id="g3a" cx="50%" cy="40%" r="60%">
+              <stop offset="0%" stop-color="#FFE040"/>
+              <stop offset="45%" stop-color="#FF5500"/>
+              <stop offset="100%" stop-color="#AA0000"/>
+            </radialGradient>
+            <linearGradient id="g3b" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#d4af37"/>
+              <stop offset="50%" stop-color="#f5e17a"/>
+              <stop offset="100%" stop-color="#a07c20"/>
+            </linearGradient>
+            <filter id="s3"><feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="rgba(0,0,0,0.5)"/></filter>
+          </defs>
+          <!-- 골드 다이아몬드 -->
+          <polygon points="55,5 104,55 55,105 6,55" fill="url(#g3b)" filter="url(#s3)"/>
+          <!-- 안쪽 -->
+          <polygon points="55,14 95,55 55,96 15,55" fill="url(#g3a)"/>
+          <!-- 불꽃 장식 -->
+          <path d="M55,26 C57,34 64,36 62,28 C68,35 66,46 60,48 C63,40 57,38 55,46 C53,38 48,40 51,48 C45,44 43,34 49,28 C47,36 52,38 55,26Z" fill="rgba(255,220,50,0.65)"/>
+          <!-- 하이라이트 -->
+          <polygon points="55,14 95,55 75,55 55,30 35,55 15,55" fill="rgba(255,255,255,0.15)"/>
+        </svg>
         <div class="cert-pin-name">ISMS / ISMS-P<br>인증 대응</div>
         <div class="cert-pin-date">최초심사 + 매년 갱신</div>
       </div>
 
+      <!-- ISO27001 — 풀 타입: 나뭇잎 오각형 -->
       <div class="cert-pin">
-        <!-- 풀 타입: 나뭇잎 모양 -->
-        <div class="cert-pin-emblem grass">
-          <svg viewBox="0 0 96 96" width="96" height="96" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-              <radialGradient id="grassGrad" cx="40%" cy="35%" r="65%">
-                <stop offset="0%" style="stop-color:#88DD44"/>
-                <stop offset="50%" style="stop-color:#33AA22"/>
-                <stop offset="100%" style="stop-color:#1A6614"/>
-              </radialGradient>
-              <linearGradient id="grassRing" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style="stop-color:#d4af37"/>
-                <stop offset="50%" style="stop-color:#f5e17a"/>
-                <stop offset="100%" style="stop-color:#a07c20"/>
-              </linearGradient>
-              <filter id="grassShadow"><feDropShadow dx="0" dy="3" stdDeviation="4" flood-color="rgba(0,0,0,0.5)"/></filter>
-            </defs>
-            <!-- 골드 외곽 -->
-            <circle cx="48" cy="48" r="44" fill="url(#grassRing)" filter="url(#grassShadow)"/>
-            <!-- 풀 배경 -->
-            <circle cx="48" cy="48" r="37" fill="url(#grassGrad)"/>
-            <!-- 나뭇잎 장식들 -->
-            <ellipse cx="48" cy="34" rx="10" ry="16" fill="rgba(255,255,255,0.2)" transform="rotate(0,48,34)"/>
-            <ellipse cx="34" cy="46" rx="10" ry="16" fill="rgba(255,255,255,0.15)" transform="rotate(-60,34,46)"/>
-            <ellipse cx="62" cy="46" rx="10" ry="16" fill="rgba(255,255,255,0.15)" transform="rotate(60,62,46)"/>
-            <!-- 줄기 -->
-            <line x1="48" y1="50" x2="48" y2="70" stroke="rgba(255,255,255,0.4)" stroke-width="2.5" stroke-linecap="round"/>
-            <!-- 하이라이트 -->
-            <ellipse cx="36" cy="30" rx="9" ry="5" fill="rgba(255,255,255,0.25)" transform="rotate(-20,36,30)"/>
-            <!-- 풀 심볼 -->
-            <text x="48" y="72" text-anchor="middle" font-size="22">🌿</text>
-          </svg>
-        </div>
+        <svg viewBox="0 0 110 110" width="110" height="110" class="cert-svg">
+          <defs>
+            <radialGradient id="g4a" cx="40%" cy="35%" r="65%">
+              <stop offset="0%" stop-color="#AAFFA0"/>  
+              <stop offset="45%" stop-color="#33BB22"/>
+              <stop offset="100%" stop-color="#116611"/>
+            </radialGradient>
+            <linearGradient id="g4b" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stop-color="#d4af37"/>
+              <stop offset="50%" stop-color="#f5e17a"/>
+              <stop offset="100%" stop-color="#a07c20"/>
+            </linearGradient>
+            <filter id="s4"><feDropShadow dx="0" dy="4" stdDeviation="5" flood-color="rgba(0,0,0,0.5)"/></filter>
+          </defs>
+          <!-- 골드 오각형 -->
+          <polygon points="55,5 104,38 86,96 24,96 6,38" fill="url(#g4b)" filter="url(#s4)"/>
+          <!-- 안쪽 -->
+          <polygon points="55,14 95,43 79,88 31,88 15,43" fill="url(#g4a)"/>
+          <!-- 나뭇잎 장식 -->
+          <ellipse cx="55" cy="44" rx="11" ry="17" fill="rgba(255,255,255,0.22)" transform="rotate(0,55,44)"/>
+          <ellipse cx="38" cy="55" rx="10" ry="16" fill="rgba(255,255,255,0.16)" transform="rotate(-55,38,55)"/>
+          <ellipse cx="72" cy="55" rx="10" ry="16" fill="rgba(255,255,255,0.16)" transform="rotate(55,72,55)"/>
+          <line x1="55" y1="58" x2="55" y2="80" stroke="rgba(255,255,255,0.4)" stroke-width="2" stroke-linecap="round"/>
+          <!-- 하이라이트 -->
+          <polygon points="55,14 95,43 75,43 55,24 35,43 15,43" fill="rgba(255,255,255,0.18)"/>
+        </svg>
         <div class="cert-pin-name">ISO 27001<br>인증 대응</div>
         <div class="cert-pin-date">2025 최초심사</div>
       </div>
