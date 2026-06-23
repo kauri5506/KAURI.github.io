@@ -122,6 +122,20 @@
     }
     .pivot-card strong { color: #FFD700; font-weight: 600; }
 
+    /* NEXT CHAPTER 마스터볼 보라 색감 */
+    .tl-item.masterball .tl-period { color: #CC88FF; }
+    .tl-item.masterball .tl-title { color: #EE99FF; text-shadow: 0 0 12px rgba(180,80,255,0.4); }
+    .tl-item.masterball .tl-sub { color: rgba(220,180,255,0.7); }
+    .tl-item.masterball .pivot-card {
+      background: rgba(130,0,220,0.12);
+      border: 1px solid rgba(180,80,255,0.3);
+    }
+    .tl-item.masterball .pivot-card strong { color: #CC88FF; }
+    .tl-item.masterball .tl-dot {
+      background: linear-gradient(to bottom, #7B3FA0 50%, var(--white) 50%);
+      box-shadow: 0 0 0 4px rgba(123,63,160,0.3), 0 0 10px rgba(180,80,255,0.35);
+    }
+
     /* ── EXPERIENCE (Security first) ── */
     .exp-entry { padding: 36px 0; border-bottom: 1px solid var(--border); display: grid; grid-template-columns: 180px 1fr; gap: 0 32px; }
     .exp-entry:last-child { border-bottom: none; }
@@ -464,7 +478,7 @@
         <span class="tl-badge badge-edu">DEGREE · 2024.09 졸업</span>
       </div>
 
-      <div class="tl-item pivot">
+      <div class="tl-item pivot masterball">
         <div class="tl-dot"></div>
         <div class="tl-period">NEXT CHAPTER</div>
         <div class="tl-title">멈추지 않는 성장</div>
